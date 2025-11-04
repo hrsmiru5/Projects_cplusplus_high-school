@@ -1,0 +1,391 @@
+#include <iostream>
+
+using namespace std;
+
+// Definire Structura NOD, pentru LDI vom avea doua legaturi, urmatorul element si precedentul.
+struct Nod {
+	int info;
+	struct Nod * succ; //succesor
+	struct Nod * pred; //predecesor
+};
+
+// Definire Structure Pentru Lista. Definim o alta structura pentru ca lista dublu inlantuita are 2 noduri, front si end.
+
+struct LDI {
+	struct Nod* front;
+	struct Nod* end;
+};
+
+// Initializem structura de lista, care contine 2 noduri, inceput si sfarsit.
+// La LDI mereu pastram adresa primului si ultimului element
+LDI* initializareLista()
+{
+	LDI* lista = new LDI;
+
+	lista->front = NULL;
+
+	lista->end = NULL;
+
+	return lista;
+}
+
+// Initializare pentru un singur nod.
+Nod* init(const int info) {
+
+	// Alocare Dinamica pentru un NOD nou.
+	Nod* nodNou = new Nod;
+
+	// Setare informatie in NOD nou.
+	nodNou->info = info;
+
+	// Setare urmatorul si precedentul nod (NULL, la creare nu avem urmatorul NOD) deci il setam pe NULL.
+	nodNou->succ = NULL;
+	nodNou->pred = NULL;
+
+	// Functia returneaza noul NOD.
+	return nodNou;
+}
+
+Nod* cautare(LDI* lista, const int element)
+{
+	Nod *tmp=lista->front;
+	if(lista->front==NULL)
+		return tmp;
+	else
+	{
+		while(tmp->succ!=NULL)
+		{
+			if(tmp->info==element)
+				return tmp;
+			tmp=tmp->succ;
+		}
+		return lista->front;
+	}
+}
+
+LDI* inserareInceput(LDI* lista, const int info)
+{
+	Nod* nodNou = init(info);
+
+	if (lista->front == NULL)
+	{
+		lista->front = lista->end = nodNou;
+	}
+	else
+	{
+		nodNou->succ = lista->front;
+		lista->front->pred = nodNou;
+		lista->front = nodNou;
+
+	}
+	return lista;
+
+}
+
+LDI* inserareSfarsit(LDI* lista, const int info)
+{
+	Nod* nodNou = init(info);
+
+	if (lista->front == NULL)
+	{
+		lista->front = lista->end = nodNou;
+	}
+	else
+	{
+		lista->end->succ=nodNou;
+		nodNou->pred=lista->end;
+		lista->end=nodNou;
+	}
+	return lista;
+}
+
+LDI* inserareDupa(LDI* lista, const int info, const int element)
+{
+	Nod* nodNou = init(info);
+	Nod* tmp=new Nod;
+	if (lista->front == NULL)
+	{
+		lista->front = lista->end = nodNou;
+	}
+	else
+	{
+		tmp=cautare(lista,element);
+		nodNou->succ=tmp->succ;
+		tmp->succ->pred=nodNou;
+		nodNou->pred=tmp;
+		tmp->succ=nodNou;
+	}
+	return lista;
+}
+
+
+LDI* inserareInainte(LDI* lista, const int info, const int element)
+{
+	Nod* nodNou = init(info);
+	Nod* tmp=new Nod;
+	if (lista->front == NULL)
+	{
+		lista->front = lista->end = nodNou;
+	}
+	else
+	{
+		tmp=cautare(lista,element);
+		nodNou->pred=tmp->pred;
+		tmp->pred->succ=nodNou;
+		nodNou->succ=tmp;
+		tmp->pred=nodNou;
+	}
+	return lista;
+}
+
+LDI* stergereInceput(LDI* lista)
+{
+	if (lista->front == NULL)
+	{
+		cout<<"Lista este goala!";
+		return NULL;
+	}
+	else
+	{
+		Nod* temp = lista->front;
+
+		lista->front = lista->front->succ;
+		lista->front->pred = NULL;
+
+		delete[] temp;
+	}
+
+	return lista;
+}
+
+LDI* stergereSfarsit(LDI* lista)
+{
+	if (lista->front == NULL)
+	{
+		cout<<"Lista este goala!";
+		return NULL;
+	}
+	else
+	{
+		Nod* temp = lista->end;
+		temp->pred->succ=NULL;
+		lista->end=temp->pred;
+
+		delete[] temp;
+	}
+
+	return lista;
+}
+
+LDI* stergereMijloc(LDI* lista, const int element)
+{
+	if (lista->front == NULL)
+	{
+		cout<<"Lista este goala!";
+		return NULL;
+	}
+	else
+	{
+		Nod* tmp = new Nod;
+		tmp = cautare(lista,element);
+		tmp->pred->succ=tmp->succ;
+		tmp->succ->pred=tmp->pred;
+
+		delete[] tmp;
+	}
+	return lista;
+}
+
+LDI* actualizare(LDI* lista, const int element, int element_nou)
+{
+	Nod *tmp=lista->front;
+	if(lista->front==NULL)
+		cout<<"Lista goala";
+	else
+	{
+		while(tmp->succ->info!=element)
+			tmp=tmp->succ;
+		if(tmp!=NULL)
+			tmp->info=element_nou;
+	}
+	return lista;
+}
+
+// De la  stanga la dreapta (inceput -> Sfrasit)
+
+void parcurgereStanga(LDI* lista) {
+	if (lista->front == NULL)
+	{
+		cout<<"Lista e goala";
+	}
+	Nod* temp = lista->front;
+
+	while (temp != NULL)
+	{
+		cout << temp->info << " ";
+		temp = temp->succ;
+	}
+
+}
+
+// De la  dreata la stanga (sfarsit -> inceput)
+void parcurgereDreapta(LDI* lista) {
+
+	if (lista->end == NULL)
+	{
+		cout<<"Lista e goala";
+	}
+
+	Nod* temp = lista->end;
+
+	while (temp != NULL)
+	{
+		cout << temp->info << " ";
+		temp = temp->pred;
+	}
+
+}
+
+LDI* sortare_crescator(LDI* lista)
+{
+	int val;
+	Nod *i=new Nod;
+	Nod *j=new Nod;
+	Nod *tmp=new Nod;
+	tmp=lista->front;
+	for(i=tmp; i->succ!=NULL; i=i->succ)
+	{
+		for(j=i->succ; j!=NULL; j=j->succ)
+		{
+			if(i->info>j->info)
+			{
+				val=i->info;
+				i->info=j->info;
+				j->info=val;
+			}
+		}
+	}
+	return lista;
+}
+
+LDI* sortare_descrescator(LDI* lista)
+{
+	int val;
+	Nod *i=new Nod;
+	Nod *j=new Nod;
+	Nod *tmp=new Nod;
+	tmp=lista->front;
+	for(i=tmp; i->succ!=NULL; i=i->succ)
+	{
+		for(j=i->succ; j!=NULL; j=j->succ)
+		{
+			if(i->info<j->info)
+			{
+				val=i->info;
+				i->info=j->info;
+				j->info=val;
+			}
+		}
+	}
+	return lista;
+}
+
+int main() {
+
+    LDI* lista = initializareLista();
+	int meniu;
+    int n,m;
+	do {
+		cout<<"0. Iesire din program"<<endl;
+		cout<<"1. Inserare Inceput"<<endl;
+		cout<<"2. Inserare Sfarsit "<<endl;
+		cout<<"3. Stergere Inceput"<<endl;
+		cout<<"4. Stergere Sfarsit"<<endl;
+		cout<<"5. Inserare Inainte"<<endl;
+		cout<<"6. Inserare Dupa"<< endl;
+		cout<<"7. Sortare crescatoare"<< endl;
+		cout<<"8. Sortare descrescatoare"<< endl;
+		cout<<"9. Parcurgere Stanga"<< endl;
+		cout<<"10. Parcurgere Dreapta"<< endl<<endl;
+		cin>>meniu;
+		switch(meniu) {
+		case 0: 
+		{
+			break;
+		}
+		case 1: 
+		{
+		    cout<<"Introduceti o variabila:"<<endl;
+            cin>>n;
+			lista = inserareInceput(lista, n);
+			break;
+		}
+		case 2: 
+		{
+		    cout<<"Introduceti o variabila:"<<endl;
+            cin>>n;
+			lista = inserareSfarsit(lista,n);
+			break;
+		}
+		case 3: 
+		{
+            lista = stergereInceput(lista);
+			break;
+		}
+		case 4: 
+		{
+            lista = stergereSfarsit(lista);
+			break;
+		}
+		case 5: 
+		{
+		    cout<<"Introduceti o variabila ce va fi introdusa:"<<endl;
+		    cin>>n;
+		    cout<<"Introduceti elementul inaintea caruia doriti sa introduceti:"<<endl;
+		    cin>>m;
+		    lista = inserareInainte(lista,n,m);
+			break;
+		}
+		case 6: 
+		{
+		    cout<<"Introduceti o variabila ce va fi introdusa:"<<endl;
+		    cin>>n;
+		    cout<<"Introduceti elementul dupa care doriti sa introduceti:"<<endl;
+		    cin>>m;
+            lista = inserareDupa(lista,n,m);
+			break;
+		}
+		case 7: 
+		{   
+		    lista=sortare_crescator(lista);
+			break;
+		}
+		case 8: 
+		{
+		    lista=sortare_descrescator(lista);
+			break;
+		}
+		case 9: 
+		{
+		    parcurgereStanga(lista);
+		    cout<<endl;
+			break;
+		}
+		case 10: 
+		{
+		    parcurgereDreapta(lista);
+		    cout<<endl;
+			break;
+		}
+		default: {
+			cout<<"Varianta gresita";
+		}
+		}
+		cout<<"Apasati o tasta\n";
+		getchar();
+		getchar();
+		system("clear");
+	}
+	while(meniu!=0);
+	return 0;
+}
