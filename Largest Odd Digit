@@ -1,0 +1,19 @@
+// Write a program that determines the largest odd digit of a natural number read from the keyboard.
+
+#include <iostream>
+using namespace std;
+int main()
+{
+    int n,maxi=0,ok=0;
+    cin>>n;
+    while(n)
+    {
+        if(maxi<n%10 && n%10%2!=0)
+        {    maxi=n%10; ok=1;}
+        n=n/10;
+    }
+    if(ok==0)
+        cout<<"nu exista";
+    else cout<<maxi;
+    return 0;
+}
