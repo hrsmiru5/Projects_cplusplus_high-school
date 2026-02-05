@@ -1,0 +1,19 @@
+// Given a natural number $n$ with at least two digits, which contains both even and odd digits, calculate the product of the largest even digit and the smallest odd digit of 'n'.
+
+#include <iostream>
+using namespace std;
+int main()
+{
+    int n,maxip=0,mini=9;
+    cin>>n;
+    while(n)
+    {
+        if(maxip<n%10 && n%2==0)
+            maxip=n%10;
+        if(mini>n%10 && n%2!=0)
+            mini=n%10;
+        n=n/10;
+    }
+    cout<<mini*maxip;
+    return 0;
+}
