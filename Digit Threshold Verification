@@ -1,0 +1,22 @@
+// Given two natural numbers $n$ and $k$, where $k$ is a single digit, verify if all the digits of 'n' are less than or equal to 'k'.
+
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    long n;
+    int k;
+    cin>>n>>k;
+    while(n)
+    {
+        if(n%10>k)
+        {
+            cout<<"NU";
+            return 0;
+        }
+        n=n/10;
+    }
+    cout<<"DA";
+    return 0;
+}
