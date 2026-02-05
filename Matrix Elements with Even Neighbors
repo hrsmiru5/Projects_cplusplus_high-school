@@ -1,0 +1,27 @@
+// Given a matrix with $n$ rows and $m$ columns containing natural numbers, determine how many elements have only even numbers as their neighbors.
+
+#include <iostream>
+using namespace std;
+int a[105][105];
+int main()
+{
+    int nr=0,m,n,i,j;
+    cin>>n>>m;
+    for(i=1; i<=n; i++)
+    {
+        for(j=1; j<=m; j++)
+            cin>>a[i][j];
+    }
+    for(i=1; i<=n; i++)
+    {
+        for(j=1; j<=m; j++)
+        {
+            if(a[i-1][j]%2==0 && a[i+1][j]%2==0 && a[i][j-1]%2==0 && a[i][j+1]%2==0)
+            {
+                nr++;
+            }
+        }
+    }
+    cout<<nr;
+    return 0;
+}
