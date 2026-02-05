@@ -1,0 +1,25 @@
+// Given $n$ natural numbers, determine the total count of even digits and the total count of odd digits across all $n$ numbers.
+
+#include<iostream>
+using namespace std;
+int main()
+{
+    int p=0,i=0,n,m;
+    cin>>n;
+    while(n)
+    {
+        cin>>m;
+        if(m==0) p++;
+        while(m)
+        {
+            if(m%10%2==0)
+                p++;
+            else i++;
+            m=m/10;
+        }
+        n--;
+    }
+    cout<<p<<' '<<i;
+    return 0;
+}
+    
