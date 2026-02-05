@@ -1,0 +1,17 @@
+// Read an array with $n$ natural numbers. Display the elements of the array that are multiples of the last element.
+
+#include <iostream>
+using namespace std;
+int main()
+{
+    int n,i,v[1001];
+    cin>>n;
+    for(i=0;i<n;i++)
+        cin>>v[i];
+    for(i=0;i<n;i++)
+    {
+        if(v[i]%v[n-1]==0)
+            cout<<v[i]<<' ';
+    }
+    return 0;
+}
