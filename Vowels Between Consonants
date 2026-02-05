@@ -1,0 +1,19 @@
+// Given a string of characters, determine the total number of vowels that are positioned strictly between two consonants.
+
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+int main()
+{
+    char s[256];
+    int nr=0,i;
+    cin.get(s,256);
+    for(i=1; i<strlen(s)-1;i++)
+    {
+        if(s[i-1]>='a' && s[i-1]<='z' && s[i]>='a' && s[i]<='z' && s[i+1]>='a' &&s[i+1]<='z' && strchr("aeiou",s[i])!= NULL && strchr("aeiou",s[i-1])==NULL && strchr("aeiou",s[i+1])==NULL)
+            nr++;
+    }
+    cout<<nr;
+    return 0;
+}
