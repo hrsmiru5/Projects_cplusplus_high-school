@@ -1,3 +1,5 @@
+////Read numbers from the keyboard until zero is entered. Determine how many of them were even.
+
 #include <iostream>
 using namespace std;
 int main()
