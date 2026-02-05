@@ -1,0 +1,21 @@
+// Read a natural number $n$. Determine the number of divisors of the reversed (mirror) version of $n$.
+
+#include <iostream>
+using namespace std;
+int main()
+{
+    int ogl=0,d,n,nr=2;
+    cin>>n;
+    while(n)
+    {
+        ogl=ogl*10+n%10;
+        n=n/10;
+    }
+    for(d=2;d<=ogl/2;d++)
+    {
+        if(ogl%d==0)
+            nr++;
+    }
+    cout<<nr;
+    return 0;
+}
