@@ -1,0 +1,71 @@
+// Given two arrays $a$ and $b$, with $n$ and $m$ natural numbers respectively, both sorted in increasing order. Construct a third array, $c$, that contains all the elements from arrays $a$ and $b$ in increasing order.
+
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main()
+{
+    int a[100001],b[100001],nr=0,i,j,n,m;
+    ifstream fin("interclasare.in");
+    ofstream fout("interclasare.out");
+    fin>>n;
+    for(i=1;i<=n;i++)
+        fin>>a[i];
+    fin>>m;
+    for(i=1;i<=m;i++)
+        fin>>b[i];
+    i=1;j=1;
+    while(i<=n && j<=m)
+    {
+        if(a[i]<b[j])
+        {
+            fout<<a[i]<<' ';
+            nr++;
+            if(nr%10==0)
+                fout<<endl;
+            i++;
+        }
+        else
+            if(a[i]>b[j])
+        {
+            fout<<b[j]<<' ';
+            nr++;
+            if(nr%10==0)
+                fout<<endl;
+            j++;
+        }
+        else
+        {
+            fout<<a[i]<<' ';
+            nr++;
+            if(nr%10==0)
+                fout<<endl;
+            i++;
+            fout<<b[j]<<' ';
+            nr++;
+            if(nr%10==0)
+                fout<<endl;
+            j++;
+        }
+    }
+    while(i<=n)
+    {
+        fout<<a[i]<<' ';
+        nr++;
+        if(nr%10==0)
+            fout<<endl;
+        i++;
+    }
+    while(j<=m)
+    {
+        fout<<b[j]<<' ';
+        nr++;
+        if(nr%10==0)
+            fout<<endl;
+        j++;
+    }
+    fin.close();
+    fout.close();
+    return 0;
+}
