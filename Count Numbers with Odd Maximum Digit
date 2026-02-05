@@ -1,0 +1,28 @@
+// Given $n$ natural numbers, determine how many of them have an odd number as their maximum digit.
+
+#include <iostream>
+using namespace std;
+int cifmax(int n)
+{
+    int maxi=0;
+    while(n)
+    {
+        if(maxi<n%10)
+            maxi=n%10;
+        n=n/10;
+    }
+    return maxi;
+}
+int main()
+{
+    int n,nr=0,x;
+    cin>>n;
+    while(n)
+    {
+        cin>>x;n--;
+        if(cifmax(x)%2!=0)
+            nr++;
+    }
+    cout<<nr;
+    return 0;
+}
