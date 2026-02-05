@@ -1,0 +1,26 @@
+// "Bird Language" is very simple and similar to Romanian. A text written in Romanian is translated into Bird Language as follows: after each vowel, the letter 'p' and that same vowel are inserted. Given a sentence in Romanian, translate it into Bird Language.
+
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+int main()
+{
+    char s[256],t[256]="";
+    int i,k=0;
+    cin.get(s,256);
+    for(i=0;i<strlen(s);i++)
+    {
+        t[k]=s[i];
+        k++;
+        if(strchr("aeiou",s[i])!=NULL)
+           {
+            t[k]='p';
+            k++;
+            t[k]=s[i];
+            k++;
+           }
+    }
+    cout<<t;
+    return 0;
+}
