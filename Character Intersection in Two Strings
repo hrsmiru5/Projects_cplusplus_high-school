@@ -1,0 +1,19 @@
+// Given two strings, display all the characters from the first string that are also present in the second string.
+
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+int main()
+{
+    char s1[251],s2[251];
+    int i;
+    cin.get(s1,251);
+    cin.get();
+    cin.get(s2,251);
+    for(i=0;i<strlen(s1);i++)
+        if(strchr(s2,s1[i]))
+            cout<<s1[i];
+
+    return 0;
+}
