@@ -1,0 +1,22 @@
+// Read a non-zero natural number $n$ and a digit $x$. Determine the smallest digit of $n$ that is strictly greater than $x$.
+
+#include <iostream>
+using namespace std;
+int main()
+{
+    long long n;
+    int k,mini=9,ok=0;
+    cin>>n>>k;
+    while(n)
+    {
+        if(mini>n%10 && n%10>k)
+        {  mini=n%10; ok=1;}
+        n=n/10;
+        
+    }
+    if(ok==0)
+        cout<<-1;
+   else  cout<<mini;
+    
+    return 0;
+}
