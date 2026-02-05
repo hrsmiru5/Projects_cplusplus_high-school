@@ -1,0 +1,16 @@
+// Write a program that determines the reverse of a natural number read from the keyboard.
+
+#include <iostream>
+using namespace std;
+int main()
+{
+    int ogl=0,n;
+    cin>>n;
+    while(n)
+    {
+        ogl=ogl*10+n%10;
+        n=n/10;
+    }
+    cout<<ogl;
+    return 0;
+}
