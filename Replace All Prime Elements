@@ -1,0 +1,29 @@
+// Read an array with $n$ natural numbers. Replace every prime element in the array with 0, then display the resulting array.
+
+#include <iostream>
+using namespace std;
+int prim(int n)
+{
+   int d;
+   if(n<=1) return 0;
+   for(d=2;d*d<=n;d++)
+   {
+       if(n%d==0)
+           return 0;
+   }
+    return 1;
+}
+int main()
+{
+    int n,i,v[1001];
+    cin>>n;
+    for(i=0;i<n;i++)
+    {
+        cin>>v[i];
+        if(prim(v[i])==1)
+            v[i]=0;
+    }
+    for(i=0;i<n;i++)
+        cout<<v[i]<<' ';
+    return 0;
+}
