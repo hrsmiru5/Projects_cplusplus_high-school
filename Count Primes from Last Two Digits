@@ -1,0 +1,35 @@
+// Read 'n' natural numbers from the keyboard. Determine how many prime numbers can be formed using the last 2 digits of each number.
+
+#include <iostream>
+#include <fstream>
+using namespace std;
+int verif(int n)
+{
+    int d;
+    if(n==0 || n==1)
+        return 0;
+    for(d=2;d<=n/2;d++)
+    {
+        if(n%d==0)
+            return 0;
+    }
+    return 1;
+}
+int main()
+{
+    ifstream fin("2prim.in");
+    ofstream fout("2prim.out");
+    int n,nr=0,x,y;
+    fin>>n;
+    while(n)
+    {
+        fin>>x; n--;
+        y=x%100;
+        if(verif(y)==1)
+            nr++;
+    }
+    fout<<nr;
+    fin.close();
+    fout.close();
+    return 0;
+}
